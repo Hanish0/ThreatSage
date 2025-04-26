@@ -1,0 +1,32 @@
+{
+  "scenarios": [
+    {
+      "id": "scenario-001",
+      "name": "SSH Brute Force",
+      "alert": "Multiple failed SSH logins from IP 45.13.22.98 for root account at 03:44 AM",
+      "description": "Detection of potential SSH brute force attack from a suspicious IP",
+      "expected_threat_level": "High"
+    },
+    {
+      "id": "scenario-002",
+      "name": "Admin Unusual Login",
+      "alert": "Admin user john.doe logged in from unusual location IP 185.107.56.21",
+      "description": "Admin user logging in from an unusual IP address at an unusual time",
+      "expected_threat_level": "Medium"
+    },
+    {
+      "id": "scenario-003",
+      "name": "Internal Connection",
+      "alert": "Internal firewall blocked connection attempt from 192.168.1.5 to finance server",
+      "description": "Internal device attempting to access restricted server",
+      "expected_threat_level": "Low"
+    },
+    {
+      "id": "scenario-004",
+      "name": "File Share Access",
+      "alert": "User susan.wilson@company.com accessed sensitive HR files from remote IP 67.43.156.89",
+      "description": "HR file access from remote location",
+      "expected_threat_level": "Medium"
+    }
+  ]
+}
