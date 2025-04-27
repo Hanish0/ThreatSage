@@ -1,5 +1,5 @@
 __pycache__/
 *.pyc
+memory_dump.txt
 .env
 venv
-memory_dump.txt
