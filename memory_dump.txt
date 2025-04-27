@@ -1,0 +1,21 @@
+{
+  "incidents": [
+    {
+      "ip": "185.107.56.21",
+      "timestamp": 1745747544.6357877,
+      "threat_score": 30
+    }
+  ],
+  "known_ips": {
+    "185.107.56.21": {
+      "seen_count": 1,
+      "previous_verdicts": [
+        {
+          "timestamp": 1745747544.6357844,
+          "threat_score": 30,
+          "summary": "- IP: 185.107.56.21\n\n- Country: The Netherlands\n\n- Region: North Brabant\n\n- City: Roosendaal\n\n- ISP:..."
+        }
+      ]
+    }
+  }
+}
