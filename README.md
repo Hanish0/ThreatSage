@@ -1,11 +1,12 @@
 # ThreatSage
 
-**ThreatSage** is an open-source, agentic AI-powered tool that enriches cybersecurity threat data and generates intelligent incident response recommendations using free LLMs.
+**ThreatSage** is an open-source, agent-based tool that enriches cybersecurity threat data and generates intelligent incident response recommendations using local language models.
 
-## 🚀 Features
+## Features
+
 - **Free-text Alert Processing**: Parse security alerts in natural language to extract IPs, users, and actions
 - **IP Address Enrichment**: Retrieves country, city, ISP, hosting status, and reputation using free IP intelligence APIs
-- **Reasoning Engine**: Uses an open-source LLM to generate recommended actions based on the threat intelligence gathered
+- **Reasoning Engine**: Uses local LLMs to generate recommended actions based on the threat intelligence gathered
 - **Threat Scoring**: Calculates a confidence score for potential security threats
 - **Report Generation**: Creates detailed markdown reports for security incidents
 - **Agent Memory**: Tracks previously seen IPs and security incidents
@@ -14,7 +15,7 @@
 
 ---
 
-## 🛠️ Project Structure
+## Project Structure
 
 ```
 ThreatSage/
@@ -26,9 +27,13 @@ ThreatSage/
     ├── examples.py      # Example usage demos
     ├── reporter.py      # Report generation module
     ├── scenarios.py     # Sample security scenarios
+    ├── visualizer.py    # IP maps and threat chart generation
 ├── data/
     └── sample_scenarios.json # Sample security alerts
 ├── reports/             # Generated security reports
+├── visualizations/      # Generated maps and charts
+├── utils/
+    └── logger.py        # Logging configuration
 ├── memory_dump.txt      # Agent memory persistence
 ├── README.md            # Project documentation
 └── requirements.txt     # Project dependencies
@@ -36,24 +41,64 @@ ThreatSage/
 
 ---
 
-## ⚙️ Installation
+## Installation
+
+### Prerequisites
+
+- Python 3.10 or higher
+- Internet connection for IP intelligence API requests
+
+### Installation Steps
+
+#### Linux/macOS
 
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/ThreatSage.git
+git clone https://github.com/yourusername/ThreatSage.git
 cd ThreatSage
 
 # Create a virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
 ```
 
+#### Windows
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/ThreatSage.git
+cd ThreatSage
+
+# Create a virtual environment
+python -m venv venv
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### LLM Selection
+
+ThreatSage uses Hugging Face Transformers to load language models. While the default fallback model is GPT-2, it is **not recommended for production use** as it produces limited and sometimes hallucinated results. For better analysis, we recommend:
+
+1. **segolilylabs/Lily-Cybersecurity-7B-v0.2** - A specialized cybersecurity model that provides excellent threat analysis (requires ~16GB VRAM)
+2. **Quantized versions** - For resource-constrained systems, look for 4-bit or 8-bit quantized versions of Lily-Cybersecurity
+3. **Mistral-7B variants** - Good alternatives with solid reasoning capabilities and better performance than GPT-2
+
+You can specify your chosen model in `agent.py` or via a configuration file.
+
 ---
 
-## 👤 Usage
+## Usage
+
+### Interactive Mode
+
+```bash
+python -m app.main
+```
 
 ### Process a Security Alert
 
@@ -81,7 +126,7 @@ python -m app.scenarios
 
 ---
 
-## 🧠 Sample Workflow
+## Core Workflow
 
 ThreatSage follows a 5-step reasoning process:
 
@@ -93,7 +138,7 @@ ThreatSage follows a 5-step reasoning process:
 
 ---
 
-## 📊 Sample Output
+## Sample Output
 
 **Input:** `"Admin login from 185.107.56.21 at 3:44 AM (unusual location)."`
 
@@ -120,30 +165,46 @@ ThreatSage follows a 5-step reasoning process:
 
 ---
 
-## 🧐 Technology Stack
-- Python 3.10+
-- Huggingface Transformers (Free GPT-2 pipeline)
-- Tensorflow (backend optimization)
-- ip-api.com (for free IP enrichment)
+## Technical Implementation
+
+ThreatSage combines several technologies to provide comprehensive threat analysis:
+
+- **Python 3.10+** - Core implementation language
+- **Hugging Face Transformers** - For loading and running language models
+- **PyTorch/TensorFlow** - Backend for machine learning models
+- **ip-api.com** - Free IP geolocation and intelligence
+- **Chart.js and Leaflet.js** - For visualization capabilities
 
 ---
 
-## 📈 Future Roadmap
-- 🔒 Add domain and URL enrichment
-- 🛡️ Expand reasoning with open-source cybersecurity LLMs
-- 🎯 Create agent memory for multi-turn reasoning
-- 🛠️ Integrate basic threat scoring and alerts
+## Visualization Features
+
+ThreatSage provides two types of visual analysis:
+
+1. **IP Location Maps** - Interactive world maps showing the geographic location of suspicious IPs
+2. **Threat History Charts** - Timeline visualization of threat scores from previous analyses
+
+These visualizations are generated as standalone HTML files in the `visualizations/` directory.
 
 ---
 
-## 🤝 Contributions
+## Future Development Roadmap
 
-Contributions, bug reports, and feature suggestions are welcome!  
-Feel free to open an issue or submit a pull request. 🛠️
+- Add domain and URL enrichment capabilities
+- Expand reasoning with specialized cybersecurity LLMs
+- Enhance agent memory for multi-turn reasoning
+- Implement MITRE ATT&CK framework integration
+- Add network traffic analysis module
+- Improve visualization options
 
 ---
 
-## 📄 License
+## Contributions
+
+Contributions, bug reports, and feature suggestions are welcome. Please feel free to open an issue or submit a pull request.
+
+---
+
+## License
+
 This project is licensed under the MIT License.
-
----
