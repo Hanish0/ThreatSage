@@ -54,7 +54,7 @@ ThreatSage/
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ThreatSage.git
+git clone https://github.com/Hanish0/ThreatSage.git
 cd ThreatSage
 
 # Create a virtual environment
@@ -69,7 +69,7 @@ pip install -r requirements.txt
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/ThreatSage.git
+git clone https://github.com/Hanish0/ThreatSage.git
 cd ThreatSage
 
 # Create a virtual environment
