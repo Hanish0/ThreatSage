@@ -2,10 +2,15 @@
 import sys
 import os
 sys.path.append(os.path.abspath("."))
+from utils.logger import configure_logging
+
+# Configure logging at the very beginning
+configure_logging()
+
 from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
 from app.extractor import EntityExtractor
-from app.main import print_banner, print_info, print_warning, print_success, print_error
+from app.main import print_banner, print_info, print_warning, print_success, print_error, suppress_warnings
 from app.visualizer import generate_html_map, generate_threat_chart
 
 def demo_ip_enrichment():
@@ -149,4 +154,6 @@ def run_all_demos():
     print_info("\n[*] All demonstrations completed")
 
 if __name__ == "__main__":
+    configure_logging()
+    suppress_warnings()
     run_all_demos()

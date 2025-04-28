@@ -2,7 +2,12 @@
 import sys
 import os
 sys.path.append(os.path.abspath("."))
-from app.main import process_text_alert
+from utils.logger import configure_logging
+
+# Configure logging at the very beginning
+configure_logging()
+
+from app.main import process_text_alert, suppress_warnings
 import json
 import time
 
@@ -83,4 +88,6 @@ def run_all_scenarios():
     print("\nAll scenarios completed.")
 
 if __name__ == "__main__":
+    configure_logging()
+    suppress_warnings()
     run_all_scenarios()
