@@ -6,6 +6,7 @@ from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
 from app.extractor import EntityExtractor
 from app.main import print_banner, print_info, print_warning, print_success, print_error
+from app.visualizer import generate_html_map, generate_threat_chart
 
 def demo_ip_enrichment():
     """Demo the IP enrichment functionality"""
@@ -97,12 +98,54 @@ def demo_full_analysis():
         "analysis": analysis
     }
 
+def demo_visualization():
+    """Demo the visualization capabilities"""
+    print_info("\n[*] Demonstrating Visualization Capabilities")
+    
+    # Use multiple IPs for more interesting visualizations
+    test_ips = ["185.107.56.21", "45.13.22.98", "67.43.156.89"]
+    
+    # Enrich all IPs
+    threat_intel = ThreatIntelligence()
+    ip_data = {}
+    
+    print_info("  - Enriching multiple IPs for visualization...")
+    for ip in test_ips:
+        print(f"    Processing {ip}...")
+        ip_data[ip] = threat_intel.enrich_ip(ip)
+    
+    # Generate map
+    print_info("  - Generating IP location map")
+    map_file = generate_html_map(ip_data)
+    print_success(f"    ✓ IP Map generated: {map_file}")
+    
+    # Generate some history for the chart
+    print_info("  - Preparing threat history data")
+    responder = IncidentResponder()
+    
+    # Analyze each IP to build history
+    for ip in test_ips:
+        responder.reason(ip_data[ip], raw_alert=f"Demo analysis for IP: {ip}")
+    
+    # Generate chart
+    print_info("  - Generating threat history chart")
+    history = responder.memory.get("incidents", [])
+    chart_file = generate_threat_chart(history)
+    print_success(f"    ✓ Threat history chart generated: {chart_file}")
+    
+    return {
+        "ip_data": ip_data,
+        "map_file": map_file,
+        "chart_file": chart_file
+    }
+
 def run_all_demos():
     """Run all demonstration functions"""
     print_banner()
     demo_ip_enrichment()
     demo_entity_extraction()
     demo_full_analysis()
+    demo_visualization()  # Add the new visualization demo
     print_info("\n[*] All demonstrations completed")
 
 if __name__ == "__main__":
