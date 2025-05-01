@@ -100,23 +100,6 @@ You can specify your chosen model in `agent.py` or via a configuration file.
 python -m app.main
 ```
 
-### Process a Security Alert
-
-```bash
-python -m app.main --alert "Multiple failed SSH logins from IP 45.13.22.98 for root account"
-```
-
-### Analyze an IP Address
-
-```bash
-python -m app.main --ip 185.107.56.21
-```
-
-### Generate a Full Report
-
-```bash
-python -m app.main --ip 185.107.56.21 --report
-```
 
 ### Run Demo Scenarios
 
