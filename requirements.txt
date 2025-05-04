@@ -1,5 +1,7 @@
-requests
-transformers
-tensorflow 
-torch
-inquirer
+requests>=2.28.2
+transformers>=4.27.0
+tensorflow>=2.11.0
+torch>=1.13.0
+inquirer>=2.10.1
+python-dotenv>=1.0.0
+ipaddress>=1.0.23
