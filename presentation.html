@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enhanced meta description for SEO -->
+    <meta name="description" content="ThreatSage: AI-Powered Cybersecurity Intelligence. Enrich alerts, generate incident reports, and visualize threats with real-time data.">
+    <meta name="keywords" content="cybersecurity, threat intelligence, security operations, AI, visualization">
+    <meta name="author" content="ThreatSage">
+    <!-- Open Graph tags for social sharing -->
+    <meta property="og:title" content="ThreatSage: AI-Powered Cybersecurity Intelligence">
+    <meta property="og:description" content="Enhance security operations with AI-powered threat intelligence and visualization">
+    <meta property="og:type" content="website">
+    <!-- Added favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>" type="image/svg+xml">
+    <title>ThreatSage: AI-Powered Cybersecurity Intelligence</title>
+    <!-- Syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --bg-color: #fafafa;
+            --card-bg: #ffffff;
+            --code-bg: #f6f8fa;
+            --border-color: #eee;
+            --quote-bg: #f8f9fa;
+            --header-text: #ffffff;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #1a1e24;
+            --accent-color: #ff6b6b;
+            --text-color: #e0e0e0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --code-bg: #2d2d2d;
+            --border-color: #333;
+            --quote-bg: #252525;
+            --header-text: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: var(--text-color);
+            background: var(--bg-color);
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1, h2, h3 {
+            font-weight: 600;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .header {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            padding: 40px 20px;
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+        .header h1 {
+            color: var(--accent-color);
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+        .header h2 {
+            font-style: italic;
+            font-weight: 400;
+            margin-top: 0;
+        }
+        .banner-img {
+            max-width: 800px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            margin: 20px 0;
+        }
+        section {
+            margin-bottom: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .flex-item-half {
+            flex-basis: 48%;
+        }
+        .quote {
+            background-color: var(--quote-bg);
+            border-left: 4px solid var(--accent-color);
+            padding: 15px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .quote-attribution {
+            text-align: right;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        .intro-box {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        td, th {
+            padding: 12px;
+            vertical-align: top;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .feature-box {
+            padding: 15px;
+            border-radius: 8px;
+            color: var(--header-text);
+            transition: transform 0.2s ease;
+        }
+        .feature-box:hover {
+            transform: scale(1.05);
+        }
+        .feature-box h3 {
+            margin-top: 0;
+        }
+        .workflow-steps {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            padding: 10px;
+        }
+        .workflow-step h3 {
+            margin-bottom: 5px;
+        }
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--code-bg);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .benefits-table th {
+            color: var(--header-text);
+            padding: 12px;
+        }
+        .benefits-table-header-1 {
+            background-color: #3498db;
+        }
+        .benefits-table-header-2 {
+            background-color: #2ecc71;
+        }
+        .roadmap-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .roadmap-phase {
+            width: 31%;
+            background-color: var(--card-bg);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .get-started {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .get-started h2 {
+            margin-top: 0;
+        }
+        .tech-code {
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.5;
+        }
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+        }
+        @media (max-width: 768px) {
+            .flex-item-half {
+                flex-basis: 100%;
+            }
+            .roadmap-phase {
+                width: 100%;
+            }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .theme-switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+        .theme-switch {
+            display: inline-block;
+            height: 24px;
+            position: relative;
+            width: 50px;
+        }
+        .theme-switch input {
+            display: none;
+        }
+        .slider {
+            background-color: #ccc;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: 0.4s;
+        }
+        .slider:before {
+            background-color: white;
+            bottom: 4px;
+            content: "";
+            height: 16px;
+            left: 4px;
+            position: absolute;
+            transition: 0.4s;
+            width: 16px;
+        }
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .slider.round {
+            border-radius: 34px;
+        }
+        .slider.round:before {
+            border-radius: 50%;
+        }
+        .visualization-container {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            transition: transform 0.3s ease;
+        }
+        .visualization-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .visualization-title {
+            background-color: var(--primary-color);
+            color: var(--header-text);
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .slide-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .slide-in.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--border-color);
+            flex-shrink: 0;
+        }
+        .timeline-dot.completed {
+            background-color: var(--accent-color);
+        }
+        .timeline-dot.in-progress {
+            background-color: #f39c12;
+        }
+        .timeline-content {
+            flex-grow: 1;
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .phase-badge {
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+            color: #fff;
+        }
+        .phase-badge.upcoming {
+            background-color: #3498db;
+        }
+        .phase-badge.future {
+            background-color: #9b59b6;
+        }
+        .timeline-body {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .status-icon {
+            font-size: 1.2em;
+        }
+        .phase-progress {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .progress-bar {
+            flex-grow: 1;
+            height: 10px;
+            background-color: var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: var(--accent-color);
+        }
+        .progress-text {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+        <em>Dark Mode</em>
+    </div>
+    
+    <div class="header">
+        <!-- Removed heading text elements to let SVG fill the entire space -->
+        <!-- Enhanced SVG banner with cybersecurity theme -->
+        <svg class="banner-svg" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
+            <!-- Gradient background -->
+            <defs>
+                <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#1a2a6c" />
+                    <stop offset="50%" stop-color="#2c3e50" />
+                    <stop offset="100%" stop-color="#b21f1f" />
+                </linearGradient>
+                <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e74c3c" stop-opacity="0.8" />
+                    <stop offset="100%" stop-color="#e74c3c" stop-opacity="0" />
+                </linearGradient>
+                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                    <feGaussianBlur stdDeviation="10" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                </filter>
+                <!-- Digital pattern for background -->
+                <pattern id="cyber-pattern" patternUnits="userSpaceOnUse" width="100" height="100" patternTransform="scale(0.5) rotate(0)">
+                    <rect width="100%" height="100%" fill="url(#bg-gradient)"/>
+                    <path d="M0 0L100 0L100 100L0 100Z" stroke="#ffffff" stroke-width="0.5" fill="none" stroke-opacity="0.1" />
+                    <circle cx="50" cy="50" r="30" stroke="#ffffff" stroke-width="0.5" fill="none" stroke-opacity="0.1" />
+                    <path d="M25 25L75 75M75 25L25 75" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.1" />
+                </pattern>
+            </defs>
+            
+            <!-- Background with pattern -->
+            <rect width="100%" height="100%" fill="url(#cyber-pattern)" />
+            
+            <!-- Network nodes and connections -->
+            <g class="network-viz" opacity="0.7">
+                <!-- Connection lines -->
+                <line x1="150" y1="100" x2="300" y2="150" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="300" y1="150" x2="450" y2="80" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="450" y1="80" x2="600" y2="120" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="600" y1="120" x2="750" y2="90" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="300" y1="150" x2="350" y2="230" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="450" y1="80" x2="500" y2="200" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                <line x1="600" y1="120" x2="500" y2="200" stroke="#3498db" stroke-width="2" opacity="0.6" />
+                
+                <!-- Network nodes -->
+                <circle cx="150" cy="100" r="15" fill="#3498db" />
+                <circle cx="300" cy="150" r="12" fill="#3498db" />
+                <circle cx="450" cy="80" r="18" fill="#3498db" />
+                <circle cx="600" cy="120" r="14" fill="#3498db" />
+                <circle cx="750" cy="90" r="16" fill="#3498db" />
+                <circle cx="350" cy="230" r="12" fill="#3498db" />
+                <circle cx="500" cy="200" r="15" fill="#3498db" />
+                
+                <!-- Alert node (red) -->
+                <circle cx="600" cy="120" r="20" fill="#e74c3c" filter="url(#glow)" class="alert-node" />
+            </g>
+            
+            <!-- Shield logo -->
+            <g transform="translate(100, 100) scale(0.8)">
+                <path d="M150,30 L270,90 L270,210 L150,270 L30,210 L30,90 Z" fill="#2c3e50" stroke="#ffffff" stroke-width="8" />
+                <path d="M150,60 L240,105 L240,195 L150,240 L60,195 L60,105 Z" fill="none" stroke="#e74c3c" stroke-width="6" />
+                <text x="150" y="165" fill="#ffffff" font-family="Arial" font-size="60" text-anchor="middle">TS</text>
+            </g>
+            
+            <!-- Text effects - Made larger and more central -->
+            <g transform="translate(320, 150)">
+                <text class="banner-text" x="0" y="0" fill="#ffffff" font-family="Arial" font-weight="bold" font-size="70">ThreatSage</text>
+                <text class="banner-text" x="10" y="70" fill="#e74c3c" font-family="Arial" font-size="30">AI-Powered Cybersecurity Intelligence</text>
+            </g>
+            
+            <!-- Binary data stream effect -->
+            <g transform="translate(0, 260)" class="binary-stream">
+                <text x="20" y="0" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.5">01101001 01101110 01110100 01100101 01101100 01101100 01101001 01100111 01100101 01101110 01100011 01100101</text>
+                <text x="20" y="15" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.3">10100111 01010100 01101000 01110010 01100101 01100001 01110100 01010011 01100001 01100111 01100101</text>
+                <text x="20" y="30" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.2">01100011 01111001 01100010 01100101 01110010 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001</text>
+            </g>
+            
+            <!-- Cyber eye element -->
+            <g transform="translate(800, 150)">
+                <ellipse cx="0" cy="0" rx="60" ry="40" fill="none" stroke="#e74c3c" stroke-width="3" />
+                <circle cx="0" cy="0" r="20" fill="#e74c3c" />
+                <circle cx="0" cy="0" r="10" fill="#ffffff" />
+                <line x1="-70" y1="0" x2="-65" y2="0" stroke="#e74c3c" stroke-width="3" />
+                <line x1="65" y1="0" x2="70" y2="0" stroke="#e74c3c" stroke-width="3" />
+                <line x1="0" y1="-50" x2="0" y2="-45" stroke="#e74c3c" stroke-width="3" />
+                <line x1="0" y1="45" x2="0" y2="50" stroke="#e74c3c" stroke-width="3" />
+            </g>
+        </svg>
+    </div>
+
+    <div class="container">
+        <!-- Challenge Section -->
+        <section id="challenge" class="slide-in">
+            <h2>🔍 The Challenge</h2>
+            <div class="flex-container">
+                <div class="flex-item-half">
+                    <h3>Security Teams Face:</h3>
+                    <ul>
+                        <li><strong>⏱️ Alert Fatigue</strong> - Too many alerts, too little time</li>
+                        <li><strong>🌐 Manual Enrichment</strong> - Time-consuming threat investigation</li>
+                        <li><strong>🧩 Context Gaps</strong> - Missing connections between incidents</li>
+                        <li><strong>📊 Analysis Bottlenecks</strong> - Limited reasoning capacity</li>
+                        <li><strong>💰 Budget Constraints</strong> - Expensive security tools</li>
+                    </ul>
+                </div>
+                <div class="flex-item-half">
+                    <div class="quote">
+                        "Security analysts spend up to 25% of their time researching indicators of compromise, leaving limited time for actual threat remediation."
+                        <div class="quote-attribution">— Security Operations Report 2023</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introduction Section -->
+        <section id="introduction">
+            <h2>🚀 Introducing ThreatSage</h2>
+            <div class="intro-box">
+                <p><strong>ThreatSage</strong> is an open-source, agent-based tool that enriches cybersecurity threat data and generates intelligent incident response recommendations using local language models.</p>
+            </div>
+            
+            <table>
+                <tr>
+                    <td width="60%">
+                        <h3>Transform Your Security Operations</h3>
+                        <p>ThreatSage leverages the power of AI to automatically:</p>
+                        <ul>
+                            <li>📝 Parse security alerts in natural language</li>
+                            <li>🌍 Enrich IPs with intelligence data</li>
+                            <li>🧠 Generate expert security recommendations</li>
+                            <li>📊 Calculate accurate threat scores</li>
+                            <li>📑 Create detailed incident reports</li>
+                            <li>🗺️ Visualize threats geographically</li>
+                        </ul>
+                    </td>
+                    <td width="40%">
+                        <!-- Demo image removed -->
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features">
+            <h2>✨ Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-box" style="background-color:#f39c12;">
+                    <h3>🔍 Free-text Alert Processing</h3>
+                    <p>Parse security alerts in natural language to extract IPs, users, actions and more</p>
+                </div>
+                <div class="feature-box" style="background-color:#2ecc71;">
+                    <h3>🌐 IP Address Enrichment</h3>
+                    <p>Retrieves country, city, ISP, hosting status, and reputation data automatically</p>
+                </div>
+                <div class="feature-box" style="background-color:#3498db;">
+                    <h3>🧠 AI Reasoning Engine</h3>
+                    <p>Uses local LLMs to generate recommended actions based on threat intelligence</p>
+                </div>
+                <div class="feature-box" style="background-color:#9b59b6;">
+                    <h3>📊 Threat Scoring</h3>
+                    <p>Calculates confidence scores for potential security threats</p>
+                </div>
+                <div class="feature-box" style="background-color:#e74c3c;">
+                    <h3>📄 Report Generation</h3>
+                    <p>Creates detailed markdown reports for security incidents</p>
+                </div>
+                <div class="feature-box" style="background-color:#1abc9c;">
+                    <h3>💾 Agent Memory</h3>
+                    <p>Tracks previously seen IPs and security incidents for continuous learning</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="workflow">
+            <h2>🔄 How It Works</h2>
+            
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <h3>1️⃣ EXTRACT</h3>
+                    <p>Parse alerts for entities</p>
+                </div>
+                <div class="workflow-step">
+                    <h3>2️⃣ ENRICH</h3>
+                    <p>Gather threat intelligence</p>
+                </div>
+                <div class="workflow-step">
+                    <h3>3️⃣ ANALYZE</h3>
+                    <p>Calculate threat scores</p>
+                </div>
+                <div class="workflow-step">
+                    <h3>4️⃣ RECOMMEND</h3>
+                    <p>Generate response plan</p>
+                </div>
+                <div class="workflow-step">
+                    <h3>5️⃣ VISUALIZE</h3>
+                    <p>Create reports & maps</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Demo Section -->
+        <section id="demo">
+            <h2>💻 See ThreatSage In Action</h2>
+            <pre><code># Alert received
+[*] Processing alert: Admin login from 185.107.56.21 at 3:44 AM (unusual location).
+
+# Entities extracted
+[*] Extracted entities:
+  IPs: 185.107.56.21
+  Actions: login
+
+# Intelligence gathering
+[*] Enriching IP data...
+  ✓ 185.107.56.21: The Netherlands - NFOrce Entertainment BV
+  ⚠ Reputation: Suspicious (High confidence)
+
+# Threat assessment
+[*] Analyzing threat data...
+  - Threat score: 70/100
+
+# AI-generated recommendation
+[*] ThreatSage recommendation:
+  This login appears to be highly suspicious. The IP address is associated with
+  known malicious activity from a hosting provider in The Netherlands. The unusual 
+  time (3:44 AM) combined with admin access makes this a potential account compromise.
+  
+  Immediate action recommended:
+  1) Lock the admin account
+  2) Force password reset
+  3) Enable MFA if not already in place
+  4) Review all activities performed during this session</code></pre>
+        </section>
+
+        <!-- Visualizations Section -->
+        <section id="visualizations">
+            <h2>📈 Visualizations</h2>
+            <div class="flex-container">
+                <div class="flex-item-half">
+                    <h3>🗺️ IP Location Maps</h3>
+                    <p>Interactive geographical visualization of threat sources:</p>
+                    <!-- Embedding actual IP map visualization with correct path -->
+                    <div class="visualization-container">
+                        <iframe src="visualizations/ip-map-20250505-013138.html" width="100%" height="400px" frameborder="0"></iframe>
+                    </div>
+                    <ul>
+                        <li>Plot suspicious IPs on world map</li>
+                        <li>Interactive tooltips with threat data</li>
+                        <li>Visual indicators of risk level</li>
+                        <li>Cluster view for attack patterns</li>
+                    </ul>
+                </div>
+                <div class="flex-item-half">
+                    <h3>📊 Threat History Charts</h3>
+                    <p>Visualize security incidents over time:</p>
+                    <!-- Embedding actual threat chart visualization with correct path -->
+                    <div class="visualization-container">
+                        <iframe src="visualizations/threat-chart-20250505-013149.html" width="100%" height="400px" frameborder="0"></iframe>
+                    </div>
+                    <ul>
+                        <li>Timeline view of threat scores</li>
+                        <li>Track security incidents over time</li>
+                        <li>Identify emerging threat patterns</li>
+                        <li>Compare current vs. historical threat levels</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Implementation Section -->
+        <section id="technical">
+            <h2>🛠️ Technical Implementation</h2>
+            <div class="code-block">
+                <h3>Core Technologies</h3>
+                <div class="tech-code">
+<pre><code># Core components of ThreatSage
+tech_stack = {
+    "language": "Python 3.10+",
+    "ai_frameworks": ["Hugging Face Transformers", "PyTorch/TensorFlow"],
+    "intelligence_apis": ["ip-api.com"],
+    "visualization": ["Chart.js", "Leaflet.js"],
+    "deployment": "Local or containerized"
+}
+
+# No paid APIs or services required!</code></pre>
+                </div>
+                <h3>LLM Selection</h3>
+                <p>Choose from various model options:</p>
+                <ul>
+                    <li><strong>Lily-Cybersecurity-7B</strong> - Specialized for security (16GB VRAM)</li>
+                    <li><strong>Quantized models</strong> - For resource-constrained environments</li>
+                    <li><strong>Mistral-7B variants</strong> - Solid reasoning capability</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section id="benefits">
+            <h2>📋 Benefits</h2>
+            <table class="benefits-table">
+                <tr>
+                    <th class="benefits-table-header-1">For Security Teams</th>
+                    <th class="benefits-table-header-2">For Organizations</th>
+                </tr>
+                <tr>
+                    <td>
+                        <ul>
+                            <li>⏱️ Reduce alert investigation time by 60%</li>
+                            <li>🧩 Gain deeper context for security events</li>
+                            <li>🔄 Automate repetitive enrichment tasks</li>
+                            <li>📊 Visualize threats for better understanding</li>
+                            <li>🧠 Access expert-level reasoning capabilities</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>💰 Lower costs with open-source solution</li>
+                            <li>🛡️ Improve security posture and response time</li>
+                            <li>🔒 Keep data local with on-prem AI models</li>
+                            <li>📈 Track security trends and patterns</li>
+                            <li>🔄 Enhance SOC team efficiency</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Implementation Roadmap Section -->
+        <section id="roadmap">
+            <h2>🚀 Implementation Roadmap</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item active">
+                    <div class="timeline-dot completed"></div>
+                    <div class="timeline-content slide-in">
+                        <div class="timeline-header">
+                            <span class="phase-badge">Current Phase</span>
+                            <h3>Phase 1: Core Features</h3>
+                        </div>
+                        <div class="timeline-body">
+                            <div class="feature-list">
+                                <div class="feature-item completed">
+                                    <span class="status-icon">✅</span>
+                                    <span>IP enrichment</span>
+                                </div>
+                                <div class="feature-item completed">
+                                    <span class="status-icon">✅</span>
+                                    <span>Entity extraction</span>
+                                </div>
+                                <div class="feature-item completed">
+                                    <span class="status-icon">✅</span>
+                                    <span>Threat scoring</span>
+                                </div>
+                                <div class="feature-item completed">
+                                    <span class="status-icon">✅</span>
+                                    <span>Basic reporting</span>
+                                </div>
+                                <div class="feature-item completed">
+                                    <span class="status-icon">✅</span>
+                                    <span>IP visualization</span>
+                                </div>
+                            </div>
+                            <div class="phase-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 100%"></div>
+                                </div>
+                                <span class="progress-text">100% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot in-progress"></div>
+                    <div class="timeline-content slide-in">
+                        <div class="timeline-header">
+                            <span class="phase-badge upcoming">Next Phase</span>
+                            <h3>Phase 2: Enhancements</h3>
+                        </div>
+                        <div class="timeline-body">
+                            <div class="feature-list">
+                                <div class="feature-item in-progress">
+                                    <span class="status-icon">⏳</span>
+                                    <span>Domain/URL enrichment</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Improved LLM reasoning</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Enhanced agent memory</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>MITRE ATT&CK mapping</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Advanced visualizations</span>
+                                </div>
+                            </div>
+                            <div class="phase-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 20%"></div>
+                                </div>
+                                <span class="progress-text">20% Complete</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content slide-in">
+                        <div class="timeline-header">
+                            <span class="phase-badge future">Future Phase</span>
+                            <h3>Phase 3: Advanced</h3>
+                        </div>
+                        <div class="timeline-body">
+                            <div class="feature-list">
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Network traffic analysis</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Log correlation engine</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Custom model training</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>API integration options</span>
+                                </div>
+                                <div class="feature-item">
+                                    <span class="status-icon">⭕</span>
+                                    <span>Enterprise deployment</span>
+                                </div>
+                            </div>
+                            <div class="phase-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 0%"></div>
+                                </div>
+                                <span class="progress-text">Planning Stage</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Get Started Section -->
+        <div class="get-started">
+            <h2>🚀 Get Started with ThreatSage Today!</h2>
+            <pre><code>git clone https://github.com/Hanish0/ThreatSage.git
+cd ThreatSage
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+python -m app.main</code></pre>
+            
+            <h3>Open Source. Free. Powerful.</h3>
+            
+            <p>
+                <a href="https://github.com/Hanish0/ThreatSage" style="color:#fff; margin:0 10px;">GitHub Repo</a> | 
+                <a href="https://github.com/Hanish0/ThreatSage/wiki" style="color:#fff; margin:0 10px;">Documentation</a> | 
+                <a href="https://github.com/Hanish0/ThreatSage/issues" style="color:#fff; margin:0 10px;">Report Issues</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        // Enable syntax highlighting for code blocks
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((el) => {
+                hljs.highlightElement(el);
+            });
+            
+            // Dark mode toggle functionality
+            const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+            
+            // Check for saved user preference
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            
+            // Update checkbox if theme is dark
+            if (currentTheme === 'dark') {
+                toggleSwitch.checked = true;
+            }
+            
+            // Switch theme when toggle is clicked
+            toggleSwitch.addEventListener('change', function(e) {
+                if (e.target.checked) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                }
+            });
+
+            // Add smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Use Intersection Observer for better scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all slide-in elements
+            document.querySelectorAll('.slide-in').forEach(el => {
+                observer.observe(el);
+                // Add slight delay for cascading effect
+                el.style.transitionDelay = Math.random() * 0.3 + 's';
+            });
+            
+            // Fix missing images by replacing with data URIs
+            document.querySelectorAll('img').forEach(img => {
+                img.onerror = function() {
+                    // If the image fails to load, replace with a data URI placeholder
+                    if (this.src.includes('workflow.jpg')) {
+                        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSIyMDAiIGZpbGw9IiMyYzNlNTAiLz4KPHRleHQgeD0iMjUwIiB5PSIxMDAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiPkV4dHJhY3QgPT4gRW5yaWNoID0+IFVuYWx5emUgPT4gUmVjb21tZW5kID0+IFZpc3VhbGl6ZTwvdGV4dD4KPC9zdmc+';
+                    } else if (this.src.includes('demo.jpg')) {
+                        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjQwMCIgaGVpZ2h0PSIzMDAiIGZpbGw9IiMyYzNlNTAiLz4KPHRleHQgeD0iMTAwIiB5PSIxNTAiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0id2hpdGUiPlRocmVhdFNhZ2UgRGVtbzwvdGV4dD4KPC9zdmc+';
+                    } else if (this.src.includes('footer.jpg')) {
+                        this.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjEwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIxMDAiIGZpbGw9IiMyYzNlNTAiLz4KPHRleHQgeD0iMjAwIiB5PSI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjIwIiBmaWxsPSJ3aGl0ZSI+VGhhbmsgeW91ITwvdGV4dD4KPC9zdmc+';
+                    }
+                };
+            });
+        });
+    </script>
+</body>
+</html>
