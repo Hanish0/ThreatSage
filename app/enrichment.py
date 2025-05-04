@@ -3,6 +3,7 @@ import time
 import hashlib
 import json
 import os
+import ipaddress
 
 class ThreatIntelligence:
     """Enhanced threat intelligence gathering from multiple sources"""
@@ -67,6 +68,21 @@ class ThreatIntelligence:
         if not ip_address:
             return {"Error": "No IP address provided"}
             
+        # Check if the IP is a private address
+        try:
+            ip_obj = ipaddress.ip_address(ip_address)
+            if ip_obj.is_private:
+                return {
+                    "IP": ip_address,
+                    "Type": "Private IP",
+                    "Note": "This is a private network address, no external intelligence available",
+                    "Country": "Internal Network",
+                    "Is Internal": True,
+                    "Reputation": "Not Applicable"
+                }
+        except ValueError:
+            pass
+            
         # Check cache first
         cached = self._check_cache("ip", ip_address)
         if cached:
@@ -93,8 +109,16 @@ class ThreatIntelligence:
     def _query_ip_api(self, ip_address):
         """Query ip-api.com for basic IP intelligence with better error handling"""
         try:
+            # ip-api.com free tier uses the http endpoint, not https
             url = f"http://ip-api.com/json/{ip_address}"
-            response = requests.get(url, timeout=5)
+            
+            # Add proper user agent and headers to avoid being blocked
+            headers = {
+                "User-Agent": "ThreatSage/1.0 (https://github.com/Hanish0/ThreatSage)",
+                "Accept": "application/json",
+            }
+            
+            response = requests.get(url, headers=headers, timeout=5)
             
             # Check if we got a response
             if response.status_code != 200:

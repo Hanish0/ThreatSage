@@ -1,12 +1,24 @@
+#!/usr/bin/env python
+"""
+ThreatSage - AI-Powered Cybersecurity Intelligence
+Main application entry point
+"""
+# Import logger first to suppress warnings immediately
 import os
+import sys
+
+# Add the root directory to path to ensure imports work correctly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Import the warning suppression system - this happens immediately on import
+from utils.logger import configure_logging
+configure_logging()
+
+# Now it's safe to import other modules
 import warnings
 import logging
 import time
 import inquirer
-from utils.logger import configure_logging
-
-
-configure_logging()
 
 from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
@@ -16,8 +28,9 @@ from app.visualizer import generate_html_map, generate_threat_chart
 
 
 def suppress_warnings():
-    
-    configure_logging()
+    """Additional warning suppression if needed"""
+    # Main suppression is now done in logger.py
+    pass
 
 def print_banner():
     
@@ -77,6 +90,8 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
             
             if "Error" in ip_data[ip]:
                 print_error(f"    ✘ Error: {ip_data[ip]['Error']}")
+            elif ip_data[ip].get("Is Internal", False):
+                print_info(f"    ℹ {ip}: {ip_data[ip]['Type']} - {ip_data[ip]['Note']}")
             else:
                 print_success(f"    ✓ {ip}: {ip_data[ip]['Country']} - {ip_data[ip]['Organization']}")
                 if ip_data[ip].get('Reputation') == 'Suspicious':

@@ -1,15 +1,22 @@
-# app/scenarios.py
-import sys
+#!/usr/bin/env python
+"""
+ThreatSage - Sample security scenarios runner
+"""
+# Import logger first to suppress warnings immediately
 import os
-sys.path.append(os.path.abspath("."))
-from utils.logger import configure_logging
+import sys
 
-# Configure logging at the very beginning
+# Add the root directory to path to ensure imports work correctly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Import the warning suppression system - this happens immediately on import
+from utils.logger import configure_logging
 configure_logging()
 
-from app.main import process_text_alert, suppress_warnings
+# Now it's safe to import other modules
 import json
 import time
+from app.main import process_alert_or_ip, suppress_warnings
 
 def load_scenarios():
     """Load sample scenarios from JSON file, or create if not exists"""
@@ -69,7 +76,7 @@ def run_scenario(scenario):
     print(f"{'=' * 80}")
     
     # Process the alert
-    process_text_alert(scenario['alert'])
+    process_alert_or_ip(scenario['alert'])
     
     print(f"\n{'=' * 80}\n")
     time.sleep(1)  # Pause between scenarios

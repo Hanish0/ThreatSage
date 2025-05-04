@@ -1,12 +1,19 @@
-# app/examples.py
-import sys
+#!/usr/bin/env python
+"""
+ThreatSage - Examples and demonstrations
+"""
+# Import logger first to suppress warnings immediately
 import os
-sys.path.append(os.path.abspath("."))
-from utils.logger import configure_logging
+import sys
 
-# Configure logging at the very beginning
+# Add the root directory to path to ensure imports work correctly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+# Import the warning suppression system - this happens immediately on import
+from utils.logger import configure_logging
 configure_logging()
 
+# Now it's safe to import other modules
 from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
 from app.extractor import EntityExtractor
