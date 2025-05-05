@@ -5,7 +5,9 @@ Main application entry point
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Use the centralized path setup function
+from app import setup_project_path
+setup_project_path()
 
 from utils.logger import configure_logging
 configure_logging()
@@ -14,12 +16,19 @@ import warnings
 import logging
 import time
 import inquirer
+import ipaddress
 
 from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
 from app.extractor import EntityExtractor
 from app.reporter import generate_report
 from app.visualizer import generate_html_map, generate_threat_chart
+
+
+def suppress_warnings():
+    """Suppress unnecessary warnings for cleaner output"""
+    warnings.filterwarnings("ignore")
+    logging.getLogger().setLevel(logging.ERROR)
 
 
 def print_banner():
@@ -55,7 +64,15 @@ def print_info(text):
     """Print info message in blue"""
     colored_print(text, "36")
 
-def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, generate_map=False, generate_chart=False):
+def is_valid_ip(ip_text):
+    """Properly validate IP address using ipaddress module"""
+    try:
+        ipaddress.ip_address(ip_text)
+        return True
+    except ValueError:
+        return False
+
+def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, generate_map=False, generate_chart=False, responder=None):
     """Process an IP address or alert text with visualization options"""
     print_info(f"[*] Processing {'IP' if is_ip else 'alert'}: {input_text}")
     
@@ -86,7 +103,9 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
         print_warning("\n[!] No IP addresses found in the input.")
         
     print_info("\n[*] Analyzing threat data...")
-    responder = IncidentResponder()
+    # Use the provided responder or create a new one if not provided
+    if responder is None:
+        responder = IncidentResponder()
     
     if entities['ips'] and ip_data.get(entities['ips'][0]):
         analysis = responder.reason(ip_data[entities['ips'][0]], raw_alert=input_text)
@@ -155,6 +174,8 @@ def interactive_mode():
     print_info("[*] Welcome to ThreatSage Interactive Mode")
     print_info("[*] This tool helps analyze security threats and generate reports")
     
+    responder = IncidentResponder()
+    
     while True:
         try:
             questions = [
@@ -170,9 +191,10 @@ def interactive_mode():
                 break
             input_text = input_answer['input_text']
 
-            is_ip = '.' in input_text and all(part.isdigit() for part in input_text.split('.'))  # Basic IP check
+            is_ip = is_valid_ip(input_text)  # Improved IP validation
             
-            result = process_alert_or_ip(input_text, is_ip=is_ip)
+            # Pass the shared responder to avoid creating a new instance
+            result = process_alert_or_ip(input_text, is_ip=is_ip, responder=responder)
 
             if result:
                 while True:
@@ -208,7 +230,7 @@ def interactive_mode():
 
                         if "chart" in actions:
                             print_info("\n[*] Generating threat history chart...")
-                            responder = IncidentResponder()
+                            # Use the shared responder instance for consistency
                             history = responder.memory.get("incidents", [])
                             if not history:
                                 print_warning("  ⚠ No threat history available for charting")
@@ -224,4 +246,5 @@ def interactive_mode():
             break
 
 if __name__ == "__main__":
+    suppress_warnings()
     interactive_mode()

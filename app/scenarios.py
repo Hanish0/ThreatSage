@@ -1,11 +1,8 @@
-#!/usr/bin/env python
-"""
-ThreatSage - Sample security scenarios runner
-"""
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from app import setup_project_path
+setup_project_path()
 
 from utils.logger import configure_logging
 configure_logging()
@@ -13,6 +10,7 @@ configure_logging()
 import json
 import time
 from app.main import process_alert_or_ip, suppress_warnings
+from app.agent import IncidentResponder
 
 def load_scenarios():
     """Load sample scenarios from JSON file, or create if not exists"""
@@ -63,14 +61,14 @@ def load_scenarios():
             
     return scenarios
 
-def run_scenario(scenario):
+def run_scenario(scenario, responder=None):
     """Run a single scenario"""
     print(f"\n{'=' * 80}")
     print(f"SCENARIO: {scenario['name']}")
     print(f"DESCRIPTION: {scenario['description']}")
     print(f"{'=' * 80}")
     
-    process_alert_or_ip(scenario['alert'])
+    process_alert_or_ip(scenario['alert'], responder=responder)
     
     print(f"\n{'=' * 80}\n")
     time.sleep(1)  # Pause between scenarios
@@ -83,8 +81,11 @@ def run_all_scenarios():
     print("RUNNING THREATSAGE SAMPLE SCENARIOS")
     print("=" * 80 + "\n")
     
+    # Create a shared responder instance for all scenarios
+    responder = IncidentResponder()
+    
     for scenario in scenarios:
-        run_scenario(scenario)
+        run_scenario(scenario, responder=responder)
         
     print("\nAll scenarios completed.")
 

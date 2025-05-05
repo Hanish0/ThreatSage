@@ -1,11 +1,12 @@
-#!/usr/bin/env python
 """
 ThreatSage - Examples and demonstrations
 """
 import os
 import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+# Use the centralized path setup function
+from app import setup_project_path
+setup_project_path()
 
 from utils.logger import configure_logging
 configure_logging()
