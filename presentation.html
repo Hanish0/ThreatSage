@@ -401,91 +401,11 @@
     </div>
     
     <div class="header">
-        <!-- Removed heading text elements to let SVG fill the entire space -->
-        <!-- Enhanced SVG banner with cybersecurity theme -->
-        <svg class="banner-svg" viewBox="0 0 1000 300" xmlns="http://www.w3.org/2000/svg">
-            <!-- Gradient background -->
-            <defs>
-                <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#1a2a6c" />
-                    <stop offset="50%" stop-color="#2c3e50" />
-                    <stop offset="100%" stop-color="#b21f1f" />
-                </linearGradient>
-                <linearGradient id="glow-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stop-color="#e74c3c" stop-opacity="0.8" />
-                    <stop offset="100%" stop-color="#e74c3c" stop-opacity="0" />
-                </linearGradient>
-                <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                    <feGaussianBlur stdDeviation="10" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                </filter>
-                <!-- Digital pattern for background -->
-                <pattern id="cyber-pattern" patternUnits="userSpaceOnUse" width="100" height="100" patternTransform="scale(0.5) rotate(0)">
-                    <rect width="100%" height="100%" fill="url(#bg-gradient)"/>
-                    <path d="M0 0L100 0L100 100L0 100Z" stroke="#ffffff" stroke-width="0.5" fill="none" stroke-opacity="0.1" />
-                    <circle cx="50" cy="50" r="30" stroke="#ffffff" stroke-width="0.5" fill="none" stroke-opacity="0.1" />
-                    <path d="M25 25L75 75M75 25L25 75" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.1" />
-                </pattern>
-            </defs>
-            
-            <!-- Background with pattern -->
-            <rect width="100%" height="100%" fill="url(#cyber-pattern)" />
-            
-            <!-- Network nodes and connections -->
-            <g class="network-viz" opacity="0.7">
-                <!-- Connection lines -->
-                <line x1="150" y1="100" x2="300" y2="150" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="300" y1="150" x2="450" y2="80" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="450" y1="80" x2="600" y2="120" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="600" y1="120" x2="750" y2="90" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="300" y1="150" x2="350" y2="230" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="450" y1="80" x2="500" y2="200" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                <line x1="600" y1="120" x2="500" y2="200" stroke="#3498db" stroke-width="2" opacity="0.6" />
-                
-                <!-- Network nodes -->
-                <circle cx="150" cy="100" r="15" fill="#3498db" />
-                <circle cx="300" cy="150" r="12" fill="#3498db" />
-                <circle cx="450" cy="80" r="18" fill="#3498db" />
-                <circle cx="600" cy="120" r="14" fill="#3498db" />
-                <circle cx="750" cy="90" r="16" fill="#3498db" />
-                <circle cx="350" cy="230" r="12" fill="#3498db" />
-                <circle cx="500" cy="200" r="15" fill="#3498db" />
-                
-                <!-- Alert node (red) -->
-                <circle cx="600" cy="120" r="20" fill="#e74c3c" filter="url(#glow)" class="alert-node" />
-            </g>
-            
-            <!-- Shield logo -->
-            <g transform="translate(100, 100) scale(0.8)">
-                <path d="M150,30 L270,90 L270,210 L150,270 L30,210 L30,90 Z" fill="#2c3e50" stroke="#ffffff" stroke-width="8" />
-                <path d="M150,60 L240,105 L240,195 L150,240 L60,195 L60,105 Z" fill="none" stroke="#e74c3c" stroke-width="6" />
-                <text x="150" y="165" fill="#ffffff" font-family="Arial" font-size="60" text-anchor="middle">TS</text>
-            </g>
-            
-            <!-- Text effects - Made larger and more central -->
-            <g transform="translate(320, 150)">
-                <text class="banner-text" x="0" y="0" fill="#ffffff" font-family="Arial" font-weight="bold" font-size="70">ThreatSage</text>
-                <text class="banner-text" x="10" y="70" fill="#e74c3c" font-family="Arial" font-size="30">AI-Powered Cybersecurity Intelligence</text>
-            </g>
-            
-            <!-- Binary data stream effect -->
-            <g transform="translate(0, 260)" class="binary-stream">
-                <text x="20" y="0" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.5">01101001 01101110 01110100 01100101 01101100 01101100 01101001 01100111 01100101 01101110 01100011 01100101</text>
-                <text x="20" y="15" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.3">10100111 01010100 01101000 01110010 01100101 01100001 01110100 01010011 01100001 01100111 01100101</text>
-                <text x="20" y="30" fill="#ffffff" font-family="monospace" font-size="10" opacity="0.2">01100011 01111001 01100010 01100101 01110010 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001</text>
-            </g>
-            
-            <!-- Cyber eye element -->
-            <g transform="translate(800, 150)">
-                <ellipse cx="0" cy="0" rx="60" ry="40" fill="none" stroke="#e74c3c" stroke-width="3" />
-                <circle cx="0" cy="0" r="20" fill="#e74c3c" />
-                <circle cx="0" cy="0" r="10" fill="#ffffff" />
-                <line x1="-70" y1="0" x2="-65" y2="0" stroke="#e74c3c" stroke-width="3" />
-                <line x1="65" y1="0" x2="70" y2="0" stroke="#e74c3c" stroke-width="3" />
-                <line x1="0" y1="-50" x2="0" y2="-45" stroke="#e74c3c" stroke-width="3" />
-                <line x1="0" y1="45" x2="0" y2="50" stroke="#e74c3c" stroke-width="3" />
-            </g>
-        </svg>
+
+        <div class="header-text">
+            <h1>ThreatSage</h1>
+            <h2>AI-Powered Cybersecurity Intelligence</h2>
+        </div>
     </div>
 
     <div class="container">
