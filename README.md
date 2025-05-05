@@ -85,10 +85,7 @@ python -m app.scenarios
 python -m app.examples
 ```
 
-Pro tip: For regular usage, I personally add an alias to my `.bashrc` or `.zshrc`:
-```bash
-alias threatsage="cd /path/to/ThreatSage && source venv/bin/activate && python -m app.main"
-```
+
 
 ## 🔎 Real-World Examples
 
@@ -210,14 +207,7 @@ ThreatSage works with various local LLMs, but here's what I recommend:
 
 To use a different model, edit the `model_name` parameter in `app/agent.py`.
 
-### Proxy Configuration
 
-If you're behind a corporate proxy, set these environment variables:
-
-```bash
-export HTTP_PROXY="http://proxy.example.com:8080"
-export HTTPS_PROXY="http://proxy.example.com:8080"
-```
 
 ### Memory Settings
 
