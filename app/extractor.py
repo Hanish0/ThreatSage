@@ -1,4 +1,3 @@
-
 import re
 import ipaddress
 
@@ -8,16 +7,9 @@ class EntityExtractor:
     """
     
     def __init__(self):
-        # IP address regex pattern
         self.ip_pattern = r'\b(?:\d{1,3}\.){3}\d{1,3}\b'
-        
-        # Common username patterns
         self.username_pattern = r'(?:user|account|username|login)[\s:]+([a-zA-Z0-9_\-\.]+)'
-        
-        # Time patterns
         self.time_pattern = r'\b(?:\d{1,2}[:]\d{2}(?::\d{2})?(?:\s*[AP]M)?)\b'
-        
-        # Common security actions
         self.action_keywords = [
             'login', 'logon', 'access', 'authentication', 'attempt',
             'failed', 'success', 'connect', 'connection', 'SSH', 'RDP',
@@ -35,7 +27,6 @@ class EntityExtractor:
     def extract_ips(self, text):
         """Extract IP addresses from text"""
         ip_matches = re.findall(self.ip_pattern, text)
-        # Filter valid IPs
         return [ip for ip in ip_matches if self._is_valid_ip(ip)]
     
     def extract_usernames(self, text):

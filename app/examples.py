@@ -2,18 +2,14 @@
 """
 ThreatSage - Examples and demonstrations
 """
-# Import logger first to suppress warnings immediately
 import os
 import sys
 
-# Add the root directory to path to ensure imports work correctly
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Import the warning suppression system - this happens immediately on import
 from utils.logger import configure_logging
 configure_logging()
 
-# Now it's safe to import other modules
 from app.enrichment import ThreatIntelligence
 from app.agent import IncidentResponder
 from app.extractor import EntityExtractor
@@ -67,11 +63,9 @@ def demo_full_analysis():
     """Demo the full ThreatSage analysis workflow"""
     print_info("\n[*] Demonstrating Full Analysis Workflow")
     
-    # Test alert with suspicious IP
     test_alert = "Admin login from 185.107.56.21 at 3:44 AM (unusual location)."
     print(f"  - Alert: {test_alert}")
     
-    # Step 1: Extract entities
     extractor = EntityExtractor()
     entities = extractor.extract_all(test_alert)
     
@@ -79,7 +73,6 @@ def demo_full_analysis():
     print(f"    IPs: {', '.join(entities['ips'])}")
     print(f"    Actions: {', '.join(entities['actions'])}")
     
-    # Step 2: Enrich IP data
     threat_intel = ThreatIntelligence()
     ip_data = {}
     
@@ -94,12 +87,10 @@ def demo_full_analysis():
             else:
                 print(f"    {key}: {value}")
     
-    # Step 3: Agent reasoning
     print_info("  - Performing threat analysis")
     responder = IncidentResponder()
     analysis = responder.reason(ip_data[entities['ips'][0]], raw_alert=test_alert)
     
-    # Display results
     print_info("  - Analysis Results:")
     print(f"    Threat Score: {analysis['threat_score']}/100")
     print(f"    Recommendation: {analysis['recommendation']}")
@@ -114,10 +105,8 @@ def demo_visualization():
     """Demo the visualization capabilities"""
     print_info("\n[*] Demonstrating Visualization Capabilities")
     
-    # Use multiple IPs for more interesting visualizations
     test_ips = ["185.107.56.21", "45.13.22.98", "67.43.156.89"]
     
-    # Enrich all IPs
     threat_intel = ThreatIntelligence()
     ip_data = {}
     
@@ -126,20 +115,16 @@ def demo_visualization():
         print(f"    Processing {ip}...")
         ip_data[ip] = threat_intel.enrich_ip(ip)
     
-    # Generate map
     print_info("  - Generating IP location map")
     map_file = generate_html_map(ip_data)
     print_success(f"    ✓ IP Map generated: {map_file}")
     
-    # Generate some history for the chart
     print_info("  - Preparing threat history data")
     responder = IncidentResponder()
     
-    # Analyze each IP to build history
     for ip in test_ips:
         responder.reason(ip_data[ip], raw_alert=f"Demo analysis for IP: {ip}")
     
-    # Generate chart
     print_info("  - Generating threat history chart")
     history = responder.memory.get("incidents", [])
     chart_file = generate_threat_chart(history)
@@ -157,10 +142,9 @@ def run_all_demos():
     demo_ip_enrichment()
     demo_entity_extraction()
     demo_full_analysis()
-    demo_visualization()  # Add the new visualization demo
+    demo_visualization()
     print_info("\n[*] All demonstrations completed")
 
 if __name__ == "__main__":
     configure_logging()
-    suppress_warnings()
     run_all_demos()

@@ -1,20 +1,15 @@
-#!/usr/bin/env python
 """
 ThreatSage - AI-Powered Cybersecurity Intelligence
 Main application entry point
 """
-# Import logger first to suppress warnings immediately
 import os
 import sys
 
-# Add the root directory to path to ensure imports work correctly
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-# Import the warning suppression system - this happens immediately on import
 from utils.logger import configure_logging
 configure_logging()
 
-# Now it's safe to import other modules
 import warnings
 import logging
 import time
@@ -27,13 +22,7 @@ from app.reporter import generate_report
 from app.visualizer import generate_html_map, generate_threat_chart
 
 
-def suppress_warnings():
-    """Additional warning suppression if needed"""
-    # Main suppression is now done in logger.py
-    pass
-
 def print_banner():
-    
     banner = """
     
 ████████╗██╗  ██╗██████╗ ███████╗ █████╗ ████████╗███████╗ █████╗  ██████╗ ███████╗
@@ -70,15 +59,12 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
     """Process an IP address or alert text with visualization options"""
     print_info(f"[*] Processing {'IP' if is_ip else 'alert'}: {input_text}")
     
-    
     entities = {"ips": [], "usernames": [], "actions": [], "times": []}
     if is_ip:
         entities["ips"] = [input_text]  
     else:
-        
         extractor = EntityExtractor()
         entities = extractor.extract_all(input_text)
-    
     
     threat_intel = ThreatIntelligence()
     ip_data = {}
@@ -99,7 +85,6 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
     else:
         print_warning("\n[!] No IP addresses found in the input.")
         
-    
     print_info("\n[*] Analyzing threat data...")
     responder = IncidentResponder()
     
@@ -113,7 +98,6 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
         print_info("\n[*] ThreatSage recommendation:")
         print("  " + analysis['recommendation'].replace('\n', '\n  '))
         
-        # Generate report if requested
         if score > 50 or generate_report_flag:
             report_file = generate_report(entities, ip_data, analysis, input_text)
             print_info(f"\n[*] Full report generated: {report_file}")
@@ -147,7 +131,6 @@ def process_alert_or_ip(input_text, is_ip=False, generate_report_flag=False, gen
         return None
 
 def get_post_analysis_actions():
-    
     actions = [
         ("Generate report", "report"),
         ("Generate IP location map", "map"),
@@ -168,15 +151,12 @@ def get_post_analysis_actions():
     return answers['actions'] if answers else []
 
 def interactive_mode():
-    
-    suppress_warnings()
     print_banner()
     print_info("[*] Welcome to ThreatSage Interactive Mode")
     print_info("[*] This tool helps analyze security threats and generate reports")
     
     while True:
         try:
-            
             questions = [
                 inquirer.Text(
                     'input_text',
@@ -190,14 +170,11 @@ def interactive_mode():
                 break
             input_text = input_answer['input_text']
 
-            
             is_ip = '.' in input_text and all(part.isdigit() for part in input_text.split('.'))  # Basic IP check
-
             
             result = process_alert_or_ip(input_text, is_ip=is_ip)
 
             if result:
-                
                 while True:
                     try:
                         actions = get_post_analysis_actions()
@@ -209,7 +186,6 @@ def interactive_mode():
                         if "new" in actions:
                             break
 
-                        
                         if "report" in actions:
                             if "analysis" not in result:
                                 print_error("[!] Cannot generate report, missing analysis data")
@@ -248,5 +224,4 @@ def interactive_mode():
             break
 
 if __name__ == "__main__":
-    suppress_warnings()
     interactive_mode()

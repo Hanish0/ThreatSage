@@ -13,14 +13,11 @@ def generate_html_map(ip_data):
     Returns:
         Filename of the generated HTML map
     """
-    # Create visualizations directory if it doesn't exist
     os.makedirs("visualizations", exist_ok=True)
     
-    # Generate filename with timestamp
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     filename = f"visualizations/ip-map-{timestamp}.html"
     
-    # Extract coordinates from IP data
     locations = []
     for ip, data in ip_data.items():
         if "Error" not in data and "Coordinates" in data and data["Coordinates"] != "N/A":
@@ -37,7 +34,6 @@ def generate_html_map(ip_data):
             except (ValueError, AttributeError):
                 continue
     
-    # Generate HTML content
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -130,7 +126,6 @@ def generate_html_map(ip_data):
     </html>
     """
     
-    # Write HTML to file
     with open(filename, "w") as f:
         f.write(html_content)
         
@@ -146,14 +141,11 @@ def generate_threat_chart(analysis_history):
     Returns:
         Filename of the generated HTML chart
     """
-    # Create visualizations directory if it doesn't exist
     os.makedirs("visualizations", exist_ok=True)
     
-    # Generate filename with timestamp
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     filename = f"visualizations/threat-chart-{timestamp}.html"
     
-    # Format data for chart
     chart_data = []
     for entry in analysis_history:
         chart_data.append({
@@ -162,14 +154,11 @@ def generate_threat_chart(analysis_history):
             "ip": entry.get("ip", "Unknown")
         })
     
-    # Sort by timestamp
     chart_data.sort(key=lambda x: x["timestamp"])
     
-    # Convert Unix timestamps to strings for display
     for entry in chart_data:
         entry["label"] = datetime.fromtimestamp(entry["timestamp"]).strftime("%Y-%m-%d %H:%M")
     
-    # Generate HTML content
     html_content = f"""
     <!DOCTYPE html>
     <html>
@@ -279,7 +268,6 @@ def generate_threat_chart(analysis_history):
     </html>
     """
     
-    # Write HTML to file
     with open(filename, "w") as f:
         f.write(html_content)
         
